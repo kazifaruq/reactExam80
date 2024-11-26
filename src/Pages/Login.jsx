@@ -16,12 +16,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
+  // login to google with firebase
   function loginGoogle() {
-    localStorage.clear();
-    signInWithPopup(auth, provider)
+    localStorage.clear(); // clear if existing token is there
+    signInWithPopup(auth, provider) //use popup window to sign in
       .then((result) => {
         const user = result.user;
-        setGoogleUser(user);
+        setGoogleUser(user); // user info save to state
         localStorage.setItem("userFromGoogle", JSON.stringify(user));
         naviGate("/profile");
         toast.success("Login with Google successful");
@@ -30,7 +31,7 @@ export default function Login() {
         toast.error("Google login failed");
       });
   }
-
+  // creating async function to submit authentication
   async function onSubmit(data) {
     localStorage.clear();
     setLoading(true);
@@ -40,9 +41,9 @@ export default function Login() {
         data
       );
       const userInfo = response.data;
-      setLoggedUser(userInfo);
+      setLoggedUser(userInfo); // save api authentication to state
       setLoading(false);
-      reset();
+      reset(); // reset form
       naviGate("/profile");
       toast.success("Login with API successful");
     } catch (error) {
@@ -55,7 +56,9 @@ export default function Login() {
     <>
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
         <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-10">
-          <h2 className="text-3xl font-extrabold text-center text-blue-800 mb-8">Login</h2>
+          <h2 className="text-3xl font-extrabold text-center text-blue-800 mb-8">
+            Login
+          </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-5">
               <label
