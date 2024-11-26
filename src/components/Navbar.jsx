@@ -3,14 +3,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { userToken, loggedUser } = useContext(AuthContext);
+  const { userToken, loggedUser } = useContext(AuthContext); // Accessing userToken and loggedUser from AuthContext
 
-  const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
-  const googleUserInfo = JSON.parse(localStorage.getItem("userFromGoogle"));
-  //console.log(googleUserInfo);
-  const navigate = useNavigate();
+  const userInfo = JSON.parse(localStorage.getItem("loggedUser")); // Retrieving logged user info from localStorage
+  const googleUserInfo = JSON.parse(localStorage.getItem("userFromGoogle")); // Retrieving Google user info from localStorage
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   function logout() {
+    // clearing local storage
     localStorage.removeItem("userToken");
     localStorage.removeItem("loggedUser");
     localStorage.removeItem("userFromGoogle");
@@ -75,7 +75,6 @@ export default function Navbar() {
             </NavLink>
           </div>
 
-
           <div className="px-2">
             <NavLink
               to="/profile"
@@ -103,6 +102,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="navbar-end">
+          
           {userInfo ||
             (googleUserInfo && (
               <div className="dropdown dropdown-end z-50">
